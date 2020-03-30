@@ -24,7 +24,7 @@ const produtos = [
 
 
 
-renderizaProdutos()
+
 
 function renderizaProduto(produto) {
   console.log(produto)
@@ -52,5 +52,7 @@ function renderizaProdutos() {
   })
   return html;
 }
+
+
 
 document.querySelector('.loja').innerHTML = renderizaProdutos();
