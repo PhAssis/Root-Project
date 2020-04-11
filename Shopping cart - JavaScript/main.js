@@ -27,15 +27,13 @@ const carrinhoItens = {};
 function renderizaProduto(produto, index) {
   return `
     <div class="col-12 col-sm-6 col-md-6 mb-3">
-      <div class="card">
-        <div class="card loja__item">
+      <div class="card loja__item">
           <img class="card-img-top" src="${produto.imagem}" alt="">
             <div class="card-body">
               <h5 class="card-title">${produto.nome}</h5>
               <small>R$${produto.preco}</small>
               <p class="card-text">${produto.descricao}</p>
               <button data-index="${index}" class="btn btn-primary btn-add">Adicionar</button>
-            </div>
             </div>
         </div>
       </div>
