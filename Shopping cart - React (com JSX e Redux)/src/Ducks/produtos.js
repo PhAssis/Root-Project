@@ -18,14 +18,14 @@ function buscaProdutos(pagina = 1) {
   return function (dispatch) {
     dispatch(produtosInicializando());
     backendService
-      .getProdutosPorPagina()
+      .getProdutosPorPagina(pagina)
       .then(function (data) {
         dispatch(produtosFinalizado({
           ...data,
           atual: pagina
         }))
-    })
-      
+      })
+
   }
 };
 
@@ -49,12 +49,14 @@ export default function (state = estadoInicial, action) {
       return {
         ...state,
         loading: false,
-        anterior: action.payload.prev || null,
-        proximo: action.payload.next || null,
-        primeira: action.payload.first, 
-        ultima: action.payload.last,
         data: action.payload.data,
-        atual: action.payload.atual
+        paginacao: {
+          anterior: action.payload.prev || null,
+          proxima: action.payload.next || null,
+          primeira: action.payload.first,
+          ultima: action.payload.last,
+          atual: action.payload.atual
+        }
 
       }
     default:
@@ -66,7 +68,11 @@ export default function (state = estadoInicial, action) {
 const getProdutos = state => state.produtos.data;
 const isLoading = state => state.produtos.loading;
 
+const getPaginacao = state => state.produtos.paginacao;
+
+
 export const Selectors = {
   getProdutos,
   isLoading,
+  getPaginacao
 };

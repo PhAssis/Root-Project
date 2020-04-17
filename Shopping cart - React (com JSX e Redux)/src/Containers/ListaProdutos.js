@@ -21,7 +21,7 @@ const ListaProdutos = (props) => {
   })
   return (
     <>
-      <PaginacaoComponent/>
+      <PaginacaoComponent {...props.paginacao}/>
       <div className="row">
         {props.loading
           ? <strong>Carregando...</strong>
@@ -39,7 +39,8 @@ const ListaProdutos = (props) => {
 
 const mapStateToProps = state => ({
   itens: produtosSelector.getProdutos(state),
-  loading: produtosSelector.isLoading(state)
+  loading: produtosSelector.isLoading(state),
+  paginacao: produtosSelector.getPaginacao(state)
 })
 
 
@@ -47,8 +48,8 @@ const mapDispatchToProps = (dispatch) => ({
   onClick(item) {
     dispatch(carrinhoCreators.addItem(item))
   },
-  buscaProdutos() {
-    dispatch(produtosCreators.buscaProdutos())
+  buscaProdutos(pagina) {
+    dispatch(produtosCreators.buscaProdutos(pagina))
   }
 
 })
