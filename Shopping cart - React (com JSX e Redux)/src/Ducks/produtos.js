@@ -29,6 +29,8 @@ function buscaProdutos(pagina = 1) {
   }
 };
 
+
+
 export const Creators = {
   buscaProdutos,
 }

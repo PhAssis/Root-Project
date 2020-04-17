@@ -7,3 +7,12 @@ export const getProdutosPorPagina = (pagina = 1) => (
       .then(resolve)
   })
 )
+
+export const getTodosProdutos = () => (
+  new Promise ( (resolve) => {
+  fetch(`http://${urlBase}/categorias`)
+  .then(resolve)
+  })
+)
+
+// exemplo de cxategoria http://localhost:3000/categorias/Kids/produtos
