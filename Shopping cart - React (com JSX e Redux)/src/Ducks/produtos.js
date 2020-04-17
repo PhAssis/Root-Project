@@ -14,13 +14,16 @@ const produtosInicializando = () => ({
   type: Types.INIT
 })
 
-function buscaProdutos() {
+function buscaProdutos(pagina = 1) {
   return function (dispatch) {
     dispatch(produtosInicializando());
     backendService
       .getProdutosPorPagina()
       .then(function (data) {
-        dispatch(produtosFinalizado(data))
+        dispatch(produtosFinalizado({
+          ...data,
+          atual: pagina
+        }))
     })
       
   }
@@ -30,7 +33,12 @@ export const Creators = {
   buscaProdutos,
 }
 
-export default function (state = { data: [] }, action) {
+const estadoInicial = {
+  data: [],
+  atual: 1
+}
+
+export default function (state = estadoInicial, action) {
   switch (action.type) {
     case Types.INIT:
       return {
@@ -41,7 +49,13 @@ export default function (state = { data: [] }, action) {
       return {
         ...state,
         loading: false,
-        data: action.payload.data
+        anterior: action.payload.prev || null,
+        proximo: action.payload.next || null,
+        primeira: action.payload.first, 
+        ultima: action.payload.last,
+        data: action.payload.data,
+        atual: action.payload.atual
+
       }
     default:
       return state;

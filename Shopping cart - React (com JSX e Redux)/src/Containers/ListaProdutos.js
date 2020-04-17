@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import { Creators as carrinhoCreators } from '../Ducks/carrinho';
@@ -8,6 +8,7 @@ import {
 } from '../Ducks/produtos';
 
 import CardComponent from '../Components/Card';
+import PaginacaoComponent from '../Components/Paginacao';
 
 
 const ListaProdutos = (props) => {
@@ -15,21 +16,24 @@ const ListaProdutos = (props) => {
   useEffect(function () {
     if (props.itens.length <= 0 && !props.loading) {
       props.buscaProdutos();
-      
+
     }
   })
   return (
-    <div className="row">
-      {props.loading
-        ? <strong>Carregando...</strong>
-        : props.itens.map((produto, index) => (
-        <CardComponent
-          item={produto}
-          onClick={props.onClick}
-          key={`produto-${index}`}
-        />
-      ))}
-    </div>
+    <>
+      <PaginacaoComponent/>
+      <div className="row">
+        {props.loading
+          ? <strong>Carregando...</strong>
+          : props.itens.map((produto, index) => (
+            <CardComponent
+              item={produto}
+              onClick={props.onClick}
+              key={`produto-${index}`}
+            />
+          ))}
+      </div>
+    </>
   )
 }
 
