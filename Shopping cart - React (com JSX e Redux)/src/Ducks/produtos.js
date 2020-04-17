@@ -1,3 +1,5 @@
+import * as backendService from '../Services/backend';
+
 const Types = {
   DONE: 'PRODUTOS_DONE',
   INIT: 'PRODUTOS INIT'
@@ -15,11 +17,12 @@ const produtosInicializando = () => ({
 function buscaProdutos() {
   return function (dispatch) {
     dispatch(produtosInicializando());
-      fetch('http://localhost:3000/produtos')
-      .then(data => data.json())
-      .then(function (produtos) {
-        dispatch(produtosFinalizado(produtos))
-      })
+    backendService
+      .getProdutosPorPagina()
+      .then(function (data) {
+        dispatch(produtosFinalizado(data))
+    })
+      
   }
 };
 
