@@ -21,7 +21,7 @@ const ListaProdutos = (props) => {
   })
   return (
     <>
-      <PaginacaoComponent {...props.paginacao}/>
+      <PaginacaoComponent {...props.paginacao} onClick={props.buscaProdutos}/>
       <div className="row">
         {props.loading
           ? <strong>Carregando...</strong>
