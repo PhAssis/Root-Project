@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Creators as carrinhoCreators } from '../Ducks/carrinho';
 import {
@@ -9,6 +10,7 @@ import {
 
 import CardComponent from '../Components/Card';
 import PaginacaoComponent from '../Components/Paginacao';
+import NavComponent from '../Components/Nav';
 
 
 const ListaProdutos = (props) => {
@@ -21,7 +23,9 @@ const ListaProdutos = (props) => {
   })
   return (
     <>
-      <PaginacaoComponent {...props.paginacao} onClick={props.buscaProdutos}/>
+      <NavComponent />
+      <hr/>
+      <PaginacaoComponent {...props.paginacao} onClick={props.buscaProdutos} />
       <div className="row">
         {props.loading
           ? <strong>Carregando...</strong>
@@ -44,15 +48,15 @@ const mapStateToProps = state => ({
 })
 
 
-const mapDispatchToProps = (dispatch) => ({
-  onClick(item) {
-    dispatch(carrinhoCreators.addItem(item))
-  },
-  buscaProdutos(pagina) {
-    dispatch(produtosCreators.buscaProdutos(pagina))
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onClick(item) {
+      dispatch(carrinhoCreators.addItem(item))
+    },
+     ...bindActionCreators(produtosCreators, dispatch),
   }
 
-})
+}
 
 export default connect(
   mapStateToProps,
