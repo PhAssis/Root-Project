@@ -13,7 +13,7 @@ import CardComponent from '../Components/Card';
 const ListaProdutos = (props) => {
 
   useEffect(function () {
-    if (props.itens.length <= 0) {
+    if (props.itens.length <= 0 && !props.loading) {
       props.buscaProdutos();
       
     }
